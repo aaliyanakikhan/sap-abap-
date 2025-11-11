@@ -1,0 +1,49 @@
+*&---------------------------------------------------------------------*
+*& Report ZPUSHBUTTON_PRAC
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZPUSHBUTTON_PRAC.
+ selection-screen begin of block  block2 with  frame title t1.
+parameters : p_x type  i default  20 obligatory,
+             p_y type i default 10 obligatory,
+             p_z type i.
+selection-screen end of block block2.
+*selection-screen begin of block  b1 with  frame title text-001.
+selection-SCREEN skip 2.
+selection-screen PUSHBUTTON 6(10) b1 USER-COMMAND fc1. " we declare the push button while including the selection-screen since it does not hold the value & redio biutton & checkbox does hold the vlaue.
+selection-screen PUSHBUTTON /6(10) b2 USER-COMMAND fc2.
+selection-screen skip 2.
+selection-screen PUSHBUTTON 6(10) b3 USER-COMMAND fc3.
+*selection-screen end of block b1.
+initialization.
+b1 = 'Addition'.
+b2 = 'clear'.
+b3 = 'exit'.
+t1 = ' enter the input for the operation.'.
+
+at SELECTION-SCREEN.
+  case sy-ucomm.
+  when  'FC1'.
+   p_z = p_x - p_y.
+
+
+  when 'FC2'.
+   if p_x <= 0 .
+    clear : p_x ,
+    p_y,
+    p_z.
+    leave program.
+    else.
+     message ' please click on the add for the procees ' type 'I'.
+
+     endif.
+
+
+  WHEN 'FC3'.
+    if p_z => 0.
+       leave PROGRAM.
+       else.
+       message 'NEGATIVE VALUE PROGRAM WILL NOT EXIT' type 'I'.
+       endif.
+  endcase.
