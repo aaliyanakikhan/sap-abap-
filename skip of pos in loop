@@ -1,0 +1,28 @@
+
+REPORT ZLOOP.
+parameters: p_y type i obligator**y default 2.
+*this program display the skip of specific position.
+data : v_z type i VALUE 1,
+       v_res type i.
+
+while v_z <= 10.
+*  v_z = v_z + 1.
+  v_res = v_z * p_y.
+  write  : / p_y, '*',v_z, '=',v_res.
+  v_z = v_z + 1."increment ffor the value we dont use the v++
+  endwhile.
+
+  uline.
+
+ v_z = 1.
+while v_z <= 10.
+ if v_z ne 5. " ne is a syntx that  skips the no 5 position for execution.
+  v_res = v_z * p_y.
+  write  : / p_y, '*',v_z, '=',v_res.
+  endif.
+  v_z = v_z + 1."increment ffor the value we dont use the v++
+  endwhile.
+  
+*  
+*  
+*  the program excute when it comes at 5 psoition it will perform the logic of the ne
