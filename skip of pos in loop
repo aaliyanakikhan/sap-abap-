@@ -26,3 +26,20 @@ while v_z <= 10.
 *  
 *  
 *  the program excute when it comes at 5 psoition it will perform the logic of the ne
+
+*
+**the below program have the infinite loop , when the value
+**of the 5 is eq to then its a infinite loop & v_z valye is again & again 5.
+**  the program excute when it comes at 5 psoition it will perform the logic of the n
+*uline.
+*  v_z = 1.
+*
+*while v_z <= 10.
+**  v_z = v_z + 1.
+*  if v_z eq 5.
+*    continue. "it will skip the rest of the execution of the specific iteration
+*    endif. 
+*  v_res = v_z * p_y.
+*  write  : / p_y, '*',v_z, '=',v_res.
+*  v_z = v_z + 1.
+*  endwhile.
