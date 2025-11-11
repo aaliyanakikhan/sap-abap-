@@ -1,0 +1,13 @@
+
+REPORT ZLOOP.
+parameters: p_y type i.
+
+data : v_z type i VALUE 1,
+       v_res type i.
+
+while v_z <= 10.
+*  v_z = v_z + 1.
+  v_res = v_z * p_y.
+  write  : / p_y, '*',v_z, '=',v_res.
+  v_z = v_z + 1.
+  endwhile.
