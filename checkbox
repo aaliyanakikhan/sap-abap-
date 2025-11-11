@@ -1,0 +1,103 @@
+*&---------------------------------------------------------------------*
+*& Report ZCHECKBOX_PRAC
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT zcheckbox_prac.
+
+
+PARAMETERS : p_1 TYPE  i OBLIGATORY DEFAULT 10,
+             p_2 TYPE i OBLIGATORY DEFAULT 20.
+
+
+DATA: v_z TYPE i, out TYPE string.
+
+*
+*parameters : c_1 RADIOBUTTON GROUP grp1,
+*             c_2 RADIOBUTTON GROUP grp1.
+
+
+PARAMETERS : p_c1 AS CHECKBOX  USER-COMMAND fc1,
+             p_c2 AS CHECKBOX USER-COMMAND fc2,
+             p_c3 AS CHECKBOX USER-COMMAND fc3.
+
+
+
+AT SELECTION-SCREEN.
+
+  CASE sy-ucomm.
+
+    WHEN 'FC1'.
+
+      IF p_c1 ='X'.
+        v_z = p_1 + p_2.
+        out = v_z.
+        MESSAGE out TYPE 'I'.
+*        MESSAGE : ' add of the 2 numBER  ' TYPE 'I'.
+      ELSEIF p_c1 =''.
+        MESSAGE 'button deselected ' TYPE 'I'.
+      ENDIF.
+
+
+
+
+
+    WHEN 'FC2'.
+
+      IF p_c2 = 'X'.
+        v_z = p_1 - p_2.
+
+*   MESSAGE |Addition of {p_1}+{p_2} is {v_z}| TYPE 'I'.  THIS CODE IS NOT WORKI G BECAUSE THIS IS OLDER VERSION OF THE COMPILER.
+        out = v_z.
+        MESSAGE out TYPE 'I'.
+      ELSE.
+        MESSAGE 'Button deselected' TYPE 'I'.
+      ENDIF.
+
+
+    WHEN 'FC3'.
+*      MESSAGE 'MUL OF THE 2 NUMBER ' TYPE 'I'.
+* for this problem there is multiple logic but i'm not using tgis one since it  p_1 cannot take the char type DATA lv_msg TYPE string.
+*
+*IF p_c2 = 'X'.
+*  v_z = p_1 - p_2.
+*  CONCATENATE 'Subtraction of' p_1 '-' p_2 '=' v_z INTO lv_msg SEPARATED BY space.
+*  MESSAGE lv_msg TYPE 'I'.
+*ELSE.
+*  MESSAGE 'Button deselected' TYPE 'I'.
+*ENDIF.
+      IF p_c3 ='X'.
+
+        v_z = p_1 * p_2.
+
+        out = v_z.
+        MESSAGE out TYPE 'I'.
+
+
+      ELSE.
+        MESSAGE 'button deselected ' TYPE 'I'.
+      ENDIF.
+
+    WHEN OTHERS.
+      MESSAGE 'NO BUTTUN SELECTED' TYPE 'I'.
+
+
+  ENDCASE.
+*
+*start-OF-SELECTION.
+*
+*
+*if p_c1 ='X'.
+*   message ' add of the 2 number ' type 'i'.
+*
+*
+*
+*  elseif p_c2 = 'X'.
+*    message 'substraction of the  2 num ' type 'i'.
+*
+*
+*    elseif p_c3 = 'X'.
+*      message 'division of the 2 number ' type 'i'.
+*
+
+*      endif..
