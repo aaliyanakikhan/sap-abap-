@@ -3,7 +3,7 @@ Note the  submit keyword concept - it helps to call the whole program in current
 when a user click on the prog1  we all know when a user click the LPS Screen is there in this ituation same happen but , if we use the submit key the lsp of the target program is visible &  display. It measn the current 
 program lsp is also there but the target program LPS is overlap the current program lps Hence only the target program output is visible.
 
-
+  If we want to look at the Current lps screen then we have to debug then make break point click on the display list- this button helps to check the background function happening So it will help us to check the Current lps screen for the output
  In our program the current program name is ZSUBMIT_PROG   & target program name is the Zdummy. 
 Below is the code of the both program .
 ################# current program 
@@ -23,9 +23,16 @@ Submit ZDUMMY.
 REPORT ZDUMMY.
 
 
-format COLOR 3.
+format COLOR 3." Display the color 
 write : / ' begin of dummmy priogram'.
 Write : / '  end of the program'.
    format COLOR off.
 
+
+
+
+@@@@@@@@@@@@@@@@
+
+
+Rest notes 
 
