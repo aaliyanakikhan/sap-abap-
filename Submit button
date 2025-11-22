@@ -6,14 +6,23 @@ program lsp is also there but the target program LPS is overlap the current prog
   If we want to look at the Current lps screen then we have to debug then make break point click on the display list- this button helps to check the background function happening So it will help us to check the Current lps screen for the output
  In our program the current program name is ZSUBMIT_PROG   & target program name is the Zdummy. 
 Below is the code of the both program .
+
+
+ when we use the SUBMIT keyword the control is given to target program , if we want to take back the control to the current program then we have to use the  keyword  "and return " This helps us to given  & the
+n take the control back to the current program 
+
+In the below situation  when user click on the execute button it will direct excute LPS of the target then after when user click on back The  it will Display the current Lps screen 
 ################# current program 
 *&---------------------------------------------------------------------*
 *& Report ZSUBMIT_PROG
 *&---------------------------------------------------------------------*
 *&
 * concept  of the submiyt key word &---------------------------------------------------------------------*
-REPORT ZSUBMIT_PROG.
-Submit ZDUMMY.
+REPORT ZSUBMIT_PROG .
+Submit ZDUMMY and return.  ' helps to retun the control to the current program.
+
+
+
 ##################### target program 
 *&---------------------------------------------------------------------*
 *& Report ZDUMMY
