@@ -1,0 +1,4 @@
+Notes ---- exercise in which we are creating the 2 program in which 1 is reponsible for the i?o & the another prog is responsible for the reset calculation basiaclly the + of the 2 nos 
+We can use the single variable in the multiple program also for thst the " export keyword is used ------- The work of the export keyword 
+is to relocate the variable at  Specific location  in memory , every variable have the id that helps to identify its location & origin 
+
