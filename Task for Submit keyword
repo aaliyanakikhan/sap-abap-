@@ -2,3 +2,103 @@ Notes ---- exercise in which we are creating the 2 program in which 1 is reponsi
 We can use the single variable in the multiple program also for thst the " export keyword is used ------- The work of the export keyword 
 is to relocate the variable at  Specific location  in memory , every variable have the id that helps to identify its location & origin 
 
+*&---------------------------------------------------------------------*
+*& Report ZCURRENT_PROG
+*&*the variable here is exported here in memory & form memory its exported to the target program
+*& Requirement 1. read input value in curr prog 2 parameter p_x & p_y   export to memory id its a place or a memory where we store the variable name
+*2. export p_x & p_z  ---- that will store in memory id
+*3. Submit key --to send the control to target program Then take back the control using " return to " then execute the calculation in current program
+*&- display the submit keyword use & return & memory id function use
+* then we will name the  memory place as A! & A2 and used them . ALso use the target prog for the calculation purposee
+*overall  1 . current program is = i/o operations
+*2. Business logic
+
+############################################## CURRENT PRO##############
+REPORT ZCURRENT_PROG.
+PARAMETERS : p_x type i Default 10 obligatory,
+             p_y type i default 20 obligatory.
+
+export p_x to MEMORY id 'A1'.
+export p_y to MEMORY id 'A2'.
+
+
+Submit ztarget_prog and  RETURN.
+
+" this is good if we use as modulaization techgnique also
+
+
+  " now over here we will use the v_z as data & not as para
+
+  data v_z type i.
+
+ import v_z from MEMORY id 'A3'.
+
+
+ write :/ ' sum of 2 no. is ', v_z.
+ " now the output will be display on the lsp fo the current program
+
+" current program
+" 1 we have define the para then export the  to memory id
+" 2 we have created the target prog then send the request to target program also return the request as well using the submit & return keyword then we have \
+" imported the 2 variables  by using data then we have decalre the 3 var as para  then we have done the add and store the value in 3 var then we have \\
+*exported the 3 var in memory id then imported that value in curr prog using the data then print it
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@TARGET PROGRAM @@@@@@@@@@@@
+*&---------------------------------------------------------------------*
+*& Report ZTARGET_PROG
+*&---------------------------------------------------------------------*
+*&target program where the logic lies
+*the variable here is imported to use ,
+*&---------------------------------------------------------------------*
+REPORT ZTARGET_PROG.
+" now we will use the same parameter but not as parameters but as a data keyword
+
+
+Data : p_x type i ,
+       p_y type i,
+      V_z  type i." variable for the storing & calculating the operations
+
+" now we need to fetche the parameter with the memory id name.
+  "import keyword will read the memory in abap  refering to the memory id .
+    Import p_x FROM MEMORY id 'A1'.
+      Import p_y FROM MEMORY id 'A2'.
+
+ v_z = p_x + p_y.
+
+    " now we have to display the output but we will use the current program for disp;laying thje output now we have to export this v_z var to the memory so that we can use the V_z for siaplying the output but form the curr prog
+      export v_z to MEMORY id 'A3'.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
