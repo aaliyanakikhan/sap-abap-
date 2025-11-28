@@ -3,7 +3,11 @@
  *we use the stucture when we want to use the inter related data.EG emp data.
 */ the fields in the structure is store one after the other like 1 b , b2 , b3 like this its helpfull to fetch the data & use it in the code. each is use the 39 bytes \\
 * now if we want to access the  fields in the stucture then we have to use the ~ to connect the stucture name & the field name  EG----   Stucturename~fieldname 
- *now we will write the program to decalre & use the stucture fields 
+ * a structure field can only hold only one data at a time , if we want multiple data in one field we can consider the internal table for the execution 
+EG--- emp id = 1 empname = raju  empdesignation = 'manager'.
+*now we will write the program to decalre & use the stucture fields
+
+
 
  
 
