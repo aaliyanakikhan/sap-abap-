@@ -1,0 +1,11 @@
+* this program focus on the structure --- " A stucture is a user define data type unlike other data type like int char these are standard data type but the stucture is the user define data type.
+*Define stucture -- the stucture is the user define data type which have the collection of the fields
+ *we use the stucture when we want to use the inter related data.EG emp data.
+*/ the fields in the structure is store one after the other like 1 b , b2 , b3 like this its helpfull to fetch the data & use it in the code. each is use the 39 bytes \\
+* now if we want to access the  fields in the stucture then we have to use the ~ to connect the stucture name & the field name  EG----   Stucturename~fieldname 
+ *now we will write the program to decalre & use the stucture fields 
+
+ 
+
+ 
+ 
