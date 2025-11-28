@@ -7,6 +7,41 @@
 EG--- emp id = 1 empname = raju  empdesignation = 'manager'.
 *now we will write the program to decalre & use the stucture fields
 
+*&---------------------------------------------------------------------*
+*& Report ZSTRUCTURE_PRAC
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZSTRUCTURE_PRAC.
+
+data : begin of emp,
+       empno type i,
+       empname(20) type c,
+       empdesig(20) type c,
+   end of emp.
+*
+*if i would have skip the below line the  values of the field  will not print since the flow of the program.
+***when we check the program we have first mention the write statement at
+***  that time the value is still 0 but after that we have assign some
+***  values then print it will work like this
+***
+   write : / 'begin of the stucture '.
+   write : / emp-empno , emp-empname , emp-empdesig.
+
+   emp-empno = 4.
+   emp-empname = 'raju'.
+   emp-empdesig = ' manager'.
+*After adding this below statement at this point we have value then we are printing it .
+   write : / ' emp stucture...'.
+   write : / emp-empno , emp-empname , emp-empdesig.
+
+
+############output 
+
+begin of the stucture 
+0     --   --
+ emp stucture 
+0 raju mamager 
 
 
  
