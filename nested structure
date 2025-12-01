@@ -1,0 +1,62 @@
+"notes 
+" nested structure is a structure where we have  a 
+"internal structure that means structure inside there is structure 
+"when it comes to memory allocation that structure follow the same one by one memory allocation 
+"but when it comes to nested structure it make a  whole structure in place of 1 field inside it it allocate the structure then follow to nest fields 
+ TO understand the flow lets take the xample of the file directory 
+
+EG: a employee folder have employee deatils inside there is one more folder that have the 
+employement deatils like dept , designation 
+EG--- employee
+       ---- ename , empno (these are the fields)
+       ----- dept (inner structure )
+               |
+               |----- deptno , dname.( these are the nested structure )
+         ------empdesign ( this is again afield in outer structure )
+       end of employee structure.(outer structure).
+
+"code #########
+
+
+report  znested_structure.
+
+ data : begin of emp, "outer structure 
+        empno type i,
+        ename (20) type c,
+                 
+         begin of dept,"inner structure 
+           deptno type i, 
+          dname(20) type c ,
+          end of dept,
+        empdesig(20) type c , 
+end of emp.
+
+
+
+emp~empno = 1.
+emp~ename = 'raju'.
+emp~dept~deptno = 10.
+emp~dept~dname = 'sales'.
+emp~empdesig = 'manager'.
+
+Write :/ (20) 'Employee no : ', emp~empno,
+      / (20) 'Employee name : ', emp~ename,
+      /(20) 'Employee dept : ', emp~dept~deptno,
+       / (20) 'Employee  dept name  : ', emp~dept~dname,
+        /(20) 'designation  : ', emp~empdesign,
+
+
+
+
+"output @@@
+
+employees no : 1 
+employee name : raju 
+department no : 10 
+department name : sales
+
+ designation : manager 
+
+        
+        
+
