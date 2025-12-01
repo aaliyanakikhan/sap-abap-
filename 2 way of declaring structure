@@ -1,0 +1,80 @@
+"notes#####
+" new way of declaring the stuctures --- note in this method we will copy the already declared structure & then copy the data as well
+" firt we use the "like" keyword to make the exactly same structure but it will not take the data for the data we need to use the "=" 
+" that helps us to assign the structure value  & hence we can copy the data 
+" if we want to clear the data from the 2 structure we can use the "clear statement for clearing the only data but not the stucture 
+" 3 methods to tranfer only data from 1 to 2 structure 
+"=" --- assignment operator used for the  assigning the value
+"MOVE statement -- basically it is the 2 method to copy the data from one stucture to another 
+"MOVE-CORRESPONDING -- this is also use to move the data from 1 to 2 stucture 
+
+"code 
+report zstuccture_methods 
+
+data : begin of the emp,
+       empno type i ,
+       ename(15) type c,
+       empdesig(20) type c ,
+       end of the emp.
+
+
+       write : / ' emp structure,,,'." this write statement will not print any value since its declare first before assigning the value since its null
+       write :/ emp~empno , emp~ename , emp~desig." here ~ is used to connect the fields & structure bit in modern abap - is compatible .
+
+     " now we are assingning the value 
+
+     emp~empno = 4 .
+     emp~ename = 'raju'.
+     emp-empdesig = 'manager '.
+
+" the below statement wil be print the data as well with stucture since value is proeprly assign now e are prinmting it
+     write : / ' EMP  structure ,,,,'.
+    write : / emp~empno , emp~name , emp~empdesign.
+
+" SYNTAX FOR THE FOR DECALRING THE 2 STRUCTURE WITH MOVING THE DATA 
+
+ data emp2 like emp.   " this will create the new clone of the emp structre without data 
+ " lets check using the write statement
+ 
+ Write : / 'emp2 structure'.
+ write : / '  emp2~empno , emp2~name , emp2~empdesign." now this will not print the data but occupy the field places 
+
+
+ " now using the "=" we will copy the data 
+
+ emp2 = emp.
+  Write : / 'emp2 structure'.
+ write : / '  emp2~empno , emp2~name , emp2~empdesign. " now this will print the data.
+
+ " clear statement--- vclear the data i the structure 
+
+
+ clear emp2.
+  Write : / 'emp2 cleared data stucture '.
+ write : / '  emp2~empno , emp2~name , emp2~empdesign. 
+
+
+ " move statement. 
+
+
+ move emp to emp2.
+  Write : / 'emp2 structure'.
+ write : / '  emp2~empno , emp2~name , emp2~empdesign.
+
+ "move-corresponding 
+
+ move-corresponding emp to emp2.
+  Write : / 'emp2 structure'.
+ write : / '  emp2~empno , emp2~name , emp2~empdesign.
+
+ 
+
+
+ 
+    "
+
+       
+
+       
+
+
