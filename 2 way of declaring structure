@@ -93,8 +93,20 @@ write :/ ' dept structure after clear statement ..'.
 write : / dept~deptno , dept~dname. 
 
 
-        
-    "
+" now move statemnet 
+" same happen here  as = it will also copy the same data--correspond shoould be same 
+
+ move emp  to dept .
+  Write : / 'emp to dept  structure'.
+ write : /  dept~deptno , dept~dname.
+
+clear dept.
+
+
+
+ move-corresponding  emp  to dept .
+  Write : / 'emp to dept  structure move-corresponding '.
+ write : /  dept~deptno , dept~dname." t his will not work since it will only copy the field with same name 
 
        
 
@@ -140,4 +152,13 @@ dept structure
 0 ....  ......
 dept structure after assingnig emp .....
   4 raju 
+
 dept after clearing 0 .....
+
+
+emp to dept  structure
+        4 raju 
+dept after clearing 0 .....
+
+
+emp to dept  structure move-corresponding 
