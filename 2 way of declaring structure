@@ -66,11 +66,34 @@ data : begin of the emp,
  move-corresponding emp to emp2.
   Write : / 'emp2 structure'.
  write : / '  emp2~empno , emp2~name , emp2~empdesign.
-
+uline 
  
 
 
- 
+ "############# now  we will make  the  3 structure & then tranfer the data into it also we will chnage the no. of fields & try to insert the data 
+" making new stucture  with onkly 2 fileds earlier we have made of 3 fileds 
+data : begin of the dept, " over here we have not inserted any value & trying to print the screen will be null 
+       deptno type i,
+       dname(10) type c,
+ end of dept.
+
+write :/ ' dept structure ',
+Write : / dept~deptno , dept~dname.
+" now we will try to insert the emp data into this 2 filed structure 
+
+dept = emp. " we are specialyy using the = operator  bcoz this will only check the type of the data & then directly insert it in structure it does not check the filed no.s or any other part just type of data & then insert it
+write :/ ' dept structure after assigning emp..'.
+write : / dept~deptno , dept~dname. " over here the output will be the 1 field of the emp no that is 4 2 field is the raju then it will not display any further data bcoz the 3 structure hold only 2 field s & it takes data for  emp as much as it have the fileds to use 
+
+" in short when the corresponding structure have the similar data type we can use the = 
+
+clear dept.
+
+write :/ ' dept structure after clear statement ..'.
+write : / dept~deptno , dept~dname. 
+
+
+        
     "
 
        
@@ -78,3 +101,43 @@ data : begin of the emp,
        
 
 
+
+
+
+
+
+"#####output ###
+
+EMP STRUCTURE 
+        0      .....     ......
+
+emp structure ...
+4 raju     manager 
+
+emp2 structure 
+0 .....    .....
+
+emp2 after assigning ....
+4 raju manager 
+
+
+emp 2 structure after clear 
+0 ..... .......
+
+emp2  structure after move ...
+
+4 raju manager 
+
+emp 2 structure after clear 
+0 ..... .......
+
+emp2 structure after move - corresponding 
+4 raju manager
+
+--------------------------
+
+dept structure 
+0 ....  ......
+dept structure after assingnig emp .....
+  4 raju 
+dept after clearing 0 .....
