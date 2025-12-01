@@ -1,0 +1,50 @@
+" structure using the include statement --- thi statement is used to include the the whole structure in to  or inside a predefine structure.
+when we were learning the nested strucure over there wqe used make a outer strcture & inner structure 
+which reflect on memory allocation also , we know that memeory is define one by one hence if we have 10 field it will print one by one 
+ & while in nested strcuture when a field are declare its goes by one by one when the inner structuire come it occupy the field area inside it , it declare the whole strucre then follow the code 
+ now in the include statement we are including the all fields of the dept structure but the memory will go one by one means no whole structure is occupying the place of one field 
+
+
+
+ """ pogram 
+
+ report zinclude_structure 
+
+ data : begin of dept,
+        deptno type i,
+        dname(20) type c ,
+         end of dept.
+
+
+  data : begin of the emp,
+          empno type i,
+          ename (20) type c,
+          include structure dept."This statement will takes all fiedl one by one & display the dtaa as welll
+          
+   Data : empdesig (25) type c ,
+   end of emp.
+
+emp~empno =5.
+emp~ename = 'raj'.
+emp~deptno = 10.
+emp~dname = 'sales'.
+emp~empdesig ='manager'.
+
+write : emp~empno ,
+emp~ename,
+emp~deptno ,
+emp~dname,
+emp~empdesig.
+
+
+
+
+
+   "output 
+
+   5 
+   raj
+   10
+   sales
+   manager 
+ 
