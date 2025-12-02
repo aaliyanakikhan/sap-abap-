@@ -1,0 +1,25 @@
+" structure using the types keyword ---- baiscally its different form the data keyword if we use the data keyword 
+it will allocate the memory for the structure while the types keyword does not alloxate the memory & its just  template 
+
+Also the structure is juts to hold the variable & not to allocate the memory 
+The set of fields are the structure 
+also if we use the data keyword it will allocate the memory as well as declare the structure as well
+but in Types keyword it will only declare the structure & does not hold the memeory & we need the work area to hold the memory
+
+
+
+
+
+"program 
+report ztypes_strcuture.
+
+types : begin of the ty_emp, " in this strcuture it will only declare the template & not hold the data for that we will use the work area 
+        empno type i ,   
+        ename(20) type c,
+         empdesig(15) type c,
+ end of ty_emp.    " we declare with the starting of ty to represent that this is types 
+     
+
+data : wa_emp1 type ty_emp.   "here we use the worm area to declatre the memory allocateion 
+" now here we will inserting the data using the work area only means we will feed the data using the work area 
+
