@@ -6,7 +6,10 @@ The set of fields are the structure
 also if we use the data keyword it will allocate the memory as well as declare the structure as well
 but in Types keyword it will only declare the structure & does not hold the memeory & we need the work area to hold the memory
 
-
+Types keyword is sort of template ---
+1.benefit for this is we can use it with diff work areas
+2.this procees is call making of instance basiaclly its  astructure where any work area can insert the data at run time 
+                               
 
 
 
@@ -23,3 +26,52 @@ types : begin of the ty_emp, " in this strcuture it will only declare the templa
 data : wa_emp1 type ty_emp.   "here we use the worm area to declatre the memory allocateion 
 " now here we will inserting the data using the work area only means we will feed the data using the work area 
 
+data Wa_emp1 type ty_emp.
+
+wa_emp1~empno =6.
+wa_emp1~ename  ='raju'.
+wa_emp1~empdesig = 'director.
+write : / ' wa_emp1 structure ....'.
+write : wa_emp~empno,
+        Wa_emp~ename,
+        wa_emp~empdesig.
+
+uline.
+
+data wa_emp2 type ty_emp. "  now we are declaring the new work area for the template Ty_emp. Also we will euse the = operator to assign the work area on 1 value to 2 work area 
+
+
+
+write : / ' wa_emp2 structure'.
+write :/  wa_emp2~empno,
+          Wa_emp2~ename,
+          Wa_emp2~empdesig.
+
+
+wa_emp2 = wa_emp1.  " this is imp since we will copy the data form one to a other 
+
+write : / 'wa_emp2 structure after assignment wa_emp1'.
+write :/ wa_emp2~empno,
+         Wa_emp2~ename,
+         Wa_emp2~empdesig.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"output 
+6 raju director 
