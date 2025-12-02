@@ -1,0 +1,102 @@
+" notes 
+"the field sysmbol is type of varibale that store any data  
+"Also we have to use the <var_name> sign to describe the data.
+"Also if we want to assign the value into it we camnnot use the = operator it will throw the runtime error 
+"we use the assign keyword to assign the value to it .
+"program 
+" also if we use the assign keyword it make the link between 2 var that is syncronize 
+it mean if we change the one var then other is also change.
+" also if we use the assign  statement it will connect 2 var but we we try to connect with other 3 one the connection of 2 is broken 
+and it will connect with third on 
+EG. A connect B 
+   now we try to connect ABC 
+   it will not wokr 
+   we can connect only 
+   A connect with C 
+
+
+
+
+
+report zfield_symbols.
+
+data v_x type i value 10 . " normal way to declare the var 
+field-symbols <abc>. " this is way we  declare the field- sysmbol now it does not have aany value we will assign 
+
+write :/ v_z is ', v_x.
+      / '<abc> , <abc>.
+
+**<abc> = v_x.     " sysntax error --run time wrong assignment 
+Assign v_x to <abc>.  " this is correct one to assign the value 
+uline.
+write : /'v_x is ', v_x,
+        / '<abc> is ', <abc>. " now the value is 10.
+
+
+        uline.
+
+        " now we will update the value 
+        v_x = 20.
+        write : /'v_x is ', v_x,  " now the value will be display in 20 
+        / '<abc> is ', <abc>. " 
+
+     uline.
+     <abc>  = 30.
+     
+       write : /'v_x is ', v_x,  " now the value will be display in 30
+        / '<abc> is ', <abc>. " 
+
+Uline.
+
+data V_str type string value 'gensoft technoogy'. " here we iuse the string type of the variable to make the 3 connection 
+assign V_str to <abc>.
+Write : /'v-x is ', v_x,
+        / '<abc> is ', <abc>,
+        / 'v_str is ',v_str.
+
+        uline.
+
+        V-str = 'gensoft sytem 
+        wtrite :/ 'v-x is ', v_x,
+        / '<abc> is ', <abc>,
+        / 'v_str is ',v_str.
+
+
+
+
+
+
+        
+        
+
+
+
+
+
+Output 
+
+V-x is 10 
+<abc> is 
+
+V-x is 10 
+<abc> is 10 
+
+V-x is 20 
+<abc> is 20 
+
+V_x is 30 
+<abc> is 30
+
+V_x is  30 
+<abc> is gensoft techno 
+<v_str is gensoft techno
+
+
+
+V-x is 30 
+<abc> gensioft system 
+V_str is gensoft system .
+
+
+
+
