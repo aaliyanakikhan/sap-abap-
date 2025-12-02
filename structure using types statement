@@ -10,7 +10,9 @@ Types keyword is sort of template ---
 1.benefit for this is we can use it with diff work areas
 2.this procees is call making of instance basiaclly its  astructure where any work area can insert the data at run time 
                                
-
+types of structure 
+local -- which is available within program 
+global structure that us available in the db
 
 
 "program 
@@ -69,9 +71,16 @@ write :/ wa_emp2~empno,
 
 
 
-
+ 
 
 
 
 "output 
 6 raju director 
+
+wa_emp2 structure 
+----- ------ ----
+
+wa_emp3 after = opertor 
+6 raju director
+
