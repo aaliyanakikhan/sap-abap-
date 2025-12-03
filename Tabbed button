@@ -1,0 +1,92 @@
+"tabbed button --- is a block in which we select the screen & it habe the sub screen.
+"we will going to design the tabbed button in the selection screen 
+"The difference between the tabbed buttun and the push button is the tabbed button is present on the tab screen 
+EG in ddic we have the opption for the delivery class then we have the sub screen that help us to decide the delivery class the top part is 
+called the tabbed button  While if we use the button on the sub screen we ccan called it as the push button 
+Whenever we try to use the tabbed block one of the tabbed button should be active 
+Also that active tab  the sub screen is associated  or link n .
+whenever the selection-screen is about to display the 1 event is the initialization event 
+when ever we define the tabbed button & design the sub screen in program we have to connect them as well
+
+
+
+
+" program summary 
+we have design the tabbed block name is  tb1 in which t1 & t2 is the tabbed button Which has the fc1 & fc2 
+then we have the sub screens named 100 & 200 we have given the numeric name 
+
+
+
+
+
+
+
+report ztabbed_button.
+
+selection-screen begin of tabbed block tb1 for 5 lines. " this is block design  the 5 lines describe the height of the screen 
+Selection-screen tab (15 ) t1 user-command fc1.
+selection-screen tab (15)  t2 user-command fc2.  " these are the screen we wil further desiggn
+selection-screen end of block tb1.
+
+
+' 1 sub screen design 
+selection-screen begin of screen 100 as subscreen." we are designing the sub program , also giving the id of 100 asince we cannot give the 1000 ( bcoz it is used for the selection screen)
+selection-screen begin of the line.
+selection-screen comment 8(30) 1b1." comment is used when we want a label , In the 8th place & occupy the 30 space 
+selection-screen end of the line.
+selection-screen end of screen 100.
+
+
+" sub screen 2
+selection-screen begin of screen 200 as subscreen." we are designing the sub program , also giving the id of 100 asince we cannot give the 1000 ( bcoz it is used for the selection screen)
+selection-screen begin of the line.
+selection-screen comment 8(30) 1b1." comment is used when we want a label , In the 8th place & occupy the 30 space 
+selection-screen end of the line.
+selection-screen end of screen 2 00.
+
+                  " active tab , dynnr, prog are the properties of the tb1 that helps to link the tab block & the tab buttun + sub screen 
+initialization.  " whenever the selection screen load this is 1 ent to trigger 
+tb1-activetab ='FC2'." over here we are making the 2 tab default selected & activetab is the keyword to make it active + assign+ default selected 
+tb1-dynnr = '200'.   the dynnr is used  to select the sub screen program name 
+*tb1-prog = 'program name'. this is used to refer the name of the program.
+" we can use the another method also for tb1-prog
+tb1-prog = sy-repid. " this refer to the current program.
+
+t1 = 'tab1'. " this is the helps to give the title to the tabbed button.
+t2 = 'tab2'. " this give title to 2 tabbed button.
+
+" now we will print some thing in the sub screen.
+lb1 = ' welcome to the subscreen 1'.
+lb2 = ' welcome to subscreen 2'.
+
+ 
+
+" now we are declarimng the at selection screen tghis creen will execute when a user click on the 
+selection screen "  we will going to use the user-command to perform the further operation 
+
+at selection-screen.
+case sy-ucomm.
+ when 'FC1'. " now we are again defineing the all deatils regarding the sub screen to use it in thhis function 
+
+  tb1-activetab ='Fc1'.
+  tb1-dynnr = '100'.
+ tb1-prog = sy-repid.
+
+
+when 'FC2'. " now whenever a user click on the any buttun in sub screen the sap will take the input & pass to system field that is sy ucomm
+
+
+  tb1-activetab ='Fc2 '.
+  tb1-dynnr = '200'.
+ tb1-prog = sy-repid.
+
+
+
+endcase.
+
+
+
+
+
+
+
