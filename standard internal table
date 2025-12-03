@@ -2,3 +2,60 @@
 also we will use the types keyword for the template building & then we will use the data to fetche the data keyword 
 When we declare the internal table the syntax is data : t_internaltablename type table of ty_tablename 
 in above note we have used the 'type table of'  if we will remove this then it will turn in to work area & we know work area is only compatible to hold the 1 field While the internal table can hold the multiple field
+"the internal table can be created with header or without header 
+recommend to create without header
+To declare that the table is standard there is two syntax
+1. data  t_internaltablename type table of ty_tablename with header line.
+2. data t_emp1 type standard table of ty_emp with header line.
+
+header line --- is same as the work are that can store the single record one by one its present at the top of the internal table 
+and the internal table is located in the below part of the header table 
+& it have the rows & colums to store multiple data 
+
+we understand in simple terms that the header is present on the top of body & the below is callled body that we can also call the internal tabl;e 
+
+now if we are trying to fetche the database directly from the db it will present directly in internal table body 
+but if we manually inserting the data then  we will firt put the data in header then in the internal table
+
+
+
+
+
+
+
+
+report zinternal_table.
+
+ types : begin of ty_emp,
+         empno type i,
+        ename(20) type c,
+        empdesig(25) type c,
+   end of ty_emp.
+
+
+data : t_emp1 type  table of  ty_emp with header line. " in thios code we are try to declare the internal table with the header of the table 
+  
+clear t_emp1.' clear default header data.
+ t_emp1-empno = 4." here the data is copy to header after that we will insert into the table by using append 
+t_emp1-ename = 'raju'.
+t_emp1-empdesig = 'manager'.
+
+append t_emp1.  " append will copy the data from the header to internal table till end.
+
+clear t_emp1. " we recommend to clear by our self a good practice - reste it will clear automatically 
+" when ever we insert the new data the old data will automatically clear but we still use it to make the code clear
+
+" now new entry for the updating the record the old record will now be inserted to internal table form the work area now new entry will come 
+
+ t_emp1-empno = 5.
+t_emp1-ename = 'krishna'.
+t_emp1-empdesig = 'director'.
+
+ 
+
+
+
+ 
+
+
+
