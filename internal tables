@@ -1,0 +1,23 @@
+"internal db ---is a run time data -- that can be fetch form any db 
+druing the inetrnal table we can modify the data -- like curd operation or we can also update in db or we can display the data in lps
+internal table is the runtime table runs & created in application-server 
+
+internal table classification 
+|
+|
+|-=---indexed -------|
+|                    |---stamdard internal table (default)
+|                    |
+|                    |
+|                     ----sorted internal table 
+|
+|
+|-------non indexed -----|
+                         hashed internal table.
+
+
+
+
+
+
+                         
