@@ -22,9 +22,23 @@ APPEND IS UED TO INSERT THE NEW RECORD AT THE END OF THE INTERNAL TABLE.
 SY-TABIX -- is the system field that is used to  refer the index position name of the internal table 
 when a  specific record is inserted the record start form 1, 2 , 3 as goes on.
 
+also go in utikities and choose the new editor juts make sure 
+for the fomnts stting choose layout ---- setting ---- fonts.
 
 
+" there 3 ways to clear the internal table .
+1. clear  --can be used in var , wa , int.table 
+2. refresh  A.(also refer to boddy) , used only in int.table.
+            B. it will clear record but doesnt deallocate the mmemory (means if we have 100 record it will clear the recod only & does not cleatr the memory occupancy) 
+3. free (refer to body). can be used in int/table only 
+        it will clear the memory As well as the occupancy of the data in memory.
+        cut shorrt it will take the int.table in to initial state.
 
+
+" 2 ways of copy data 
+1. append 
+2. = operator 
+3.append line /
 
 
 
@@ -80,13 +94,80 @@ endloop.
 
 " now we will use the index no & print the value as per our requirement 
 
+uline.
+" the loop at specific position.
 loop  at t_emp1  from 2 to 4 . " this will skip the 1 record & print the rest
 write :/  t_emp1-empno , t_emp1-ename , t_emp1-empdesig , sy-tabix ." the system field sy-tabix is used to print the index value of the field data that is present in the internal table  " here the loop start & it will print the data 
 endloop.
 
 
+"to print the specific position only. using the where statement - note we can use the field name to apply the condision.
 
- 
+loop  at t_emp1  where empdesig = 'manager'
+or empdesig = 'Manager'
+or empdesig = 'MANAGER' . " data is case sensitive.
+write :/  t_emp1-empno , t_emp1-ename , t_emp1-empdesig , sy-tabix ." the system field sy-tabix is used to print the index value of the field data that is present in the internal table  " here the loop start & it will print the data 
+endloop.
+
+ULINE.
+" now i want to check the no of records form the internal table. 
+"using the describe table keyword we can dispaly the reord or analyze the no. iof records
+
+DESCRIBE TABLE t_emp1. " this will count the value form the internal table & store the value is system- field  called sy-tfill.
+
+write :/ ' no of the records in t_emp1 is .... ', sy-tfill.
+
+ " now we will clear internal table -- note to clear internal table body we use [].
+clear t_emp1[]. the symbol represent the body." now we will chcek again the internal table values.
+
+DESCRIBE TABLE t_emp1. " now this will show 0 in place of the values.
+
+
+"now we will declare new internal table without header & also we ill copy the fields form the earlier intenrla table.
+
+
+data t_emp2 type table of ty_emp.  this will make the new internal table witgout header=.
+
+uline .
+describe table t_emp2.
+
+write :/ 'no of records in t_emp2 is ,,,,',sy-tfill. " it will show 0.
+
+
+Append lines of t_emp1 to t_emp2. " this will help to  copy all data from old internal table to new internal table.
+
+
+uline.
+describe table t-emp2. " now it will show 4.
+write :/ 'no of records in t_eemo2 is ,,', sy-tfill. 
+
+
+" now we will make one more it and then use the 'free' refresh keyword with it
+
+data  t_emp3 type table of ty_emp.
+uline.
+
+describe table t_emp3.
+write :/ 'statement to descrive the emp3 '.
+
+
+refresh t_emp2. " this will clear the data
+
+uline.
+describe table t_emp2.
+write :' no of rows emp2 after refresh'.
+
+free t-emp3.
+describe table t_emp2.
+write :' no of rows emp2 after free'." this clear data.
+
+
+
+
+
+
+
+
 
 
  
