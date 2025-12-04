@@ -17,6 +17,10 @@ we understand in simple terms that the header is present on the top of body & th
 now if we are trying to fetche the database directly from the db it will present directly in internal table body 
 but if we manually inserting the data then  we will firt put the data in header then in the internal table
 
+APPEND IS UED TO INSERT THE NEW RECORD AT THE END OF THE INTERNAL TABLE.
+
+SY-TABIX -- is the system field that is used to  refer the index position name of the internal table 
+when a  specific record is inserted the record start form 1, 2 , 3 as goes on.
 
 
 
@@ -50,6 +54,40 @@ clear t_emp1. " we recommend to clear by our self a good practice - reste it wil
  t_emp1-empno = 5.
 t_emp1-ename = 'krishna'.
 t_emp1-empdesig = 'director'.
+
+
+
+clear t_emp1.
+ t_emp1-empno = 5.
+t_emp1-ename = 'krishna'.
+t_emp1-empdesig = 'director'.
+append t_emp1
+
+" now we will print the value.
+ write :/ t_emp1-empno , t_emp1-ename , t_emp1-empdesig. " now in this statement the system will going to print the current work area value since the write statement will be only printing the work area 
+
+" if we want to print the whole table then we will use the loop 
+" we will use the loop in loop backend -- the data from the body is copied to work area line by line start form the 1 record 
+the data come form the internal table to the work area one by one & start printing it
+
+write /' data from the internal table'.
+loop  at t_emp1.
+write :/  t_emp1-empno , t_emp1-ename , t_emp1-empdesig , sy-tabix ." the system field sy-tabix is used to print the index value of the field data that is present in the internal table  " here the loop start & it will print the data 
+endloop.
+
+" loop backend --- data from internal table ---> work area " it will iterate till the data is not printed 
+" append ---data from database -------> work area -----> internal table.
+
+" now we will use the index no & print the value as per our requirement 
+
+loop  at t_emp1  from 2 to 4 . " this will skip the 1 record & print the rest
+write :/  t_emp1-empno , t_emp1-ename , t_emp1-empdesig , sy-tabix ." the system field sy-tabix is used to print the index value of the field data that is present in the internal table  " here the loop start & it will print the data 
+endloop.
+
+
+
+ 
+
 
  
 
