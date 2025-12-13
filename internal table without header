@@ -1,0 +1,126 @@
+*&---------------------------------------------------------------------*
+*& Report  Z_INTERNALTABLE_WITHOUT_HEADER
+*&
+*&---------------------------------------------------------------------*
+*&
+*&
+*&---------------------------------------------------------------------*
+
+REPORT  Z_INTERNALTABLE_WITHOUT_HEADER.
+
+types : begin of ty_emp,
+        empno type i,
+        ename(20) type c,
+        empdesig(25) type  c,
+     end of ty_emp.
+
+     data t_emp1 type table of ty_emp. " this declare the int.table
+
+*     t_emp1-empno = 5. " here it will throw error since we are trying to pass the value in the wa area - & we cannot pass the value directly into the body.
+     "  Program Z_INTERNALTABLE_WITHOUT_HEADER  19  @0A\QError@   component called "EMPNO".
+
+ " now we have to give explicit header that is work area
+data  wa_emp type ty_emp.
+
+     clear wa_emp. " this will clear the fields .
+" data 1
+      wa_emp-empno = 101.
+     wa_emp-ename = 'raju'.
+     wa_emp-empdesig = 'Manager'.
+     append wa_emp to t_emp1.
+     " now if we would have the header table then we will going just declatre the append t_emp1   it will directly take the data.
+
+     " data 2
+       wa_emp-empno = 102.
+     wa_emp-ename = 'ram'.
+     wa_emp-empdesig = 'Quality'.
+     append wa_emp to t_emp1.
+
+     "data3.
+           wa_emp-empno = 103.
+     wa_emp-ename = 'ramesh'.
+     wa_emp-empdesig = 'developer'.
+     append wa_emp to t_emp1.
+
+format color 3.
+     write :/ 'data from the t_emp1....'.
+*
+*     loop at t_emp1." now tgis semp.yntax will going to throw the erorr since we do not have the header it will not going to execute addisinally we need to use the into or assignment operation .
+*       Internal table "T_EMP1" has no header line - one of the additions "INTO
+*wa", "ASSIGNING", "REFERENCE INTO", "TRANSPORTING NO FIELDS" required.
+*required.
+
+        loop at t_emp1    into wa_emp. " now it will populate the data for thgeb 1 data
+       write : / wa_emp-empno , wa_emp-ename , wa_emp-empdesig.
+       endloop.
+format color off.
+        " now we will use the insert statement instead of the append statement.
+       clear wa_emp.
+uline.
+       wa_emp-empno = 104.
+       wa_emp-ename = 'saniya'.
+       wa_emp-empdesig = ' assistant'.
+       insert wa_emp into table t_emp1.
+       format color 4.
+write : /  'data after insert  statement'.
+            loop at t_emp1    into wa_emp. " now it will populate the data for thgeb 1 data
+       write : / wa_emp-empno , wa_emp-ename , wa_emp-empdesig.
+       endloop.  " here we were trying to show that both append & insert are trying to insert the value at the end of the int.tab
+format COLOR off.
+
+         clear wa_emp.
+uline.
+       wa_emp-empno = 104.
+       wa_emp-ename = 'saniya'.
+       wa_emp-empdesig = ' assistant'.
+       insert wa_emp into t_emp1 index 2.
+
+       format COLOR  6.
+write : / 'data after insert  statement at specific index no ......' .
+            loop at t_emp1    into wa_emp. " now it will populate the data for thgeb 1 data
+       write : / wa_emp-empno , wa_emp-ename , wa_emp-empdesig.
+       endloop.  " here we were trying to show that both append & insert are trying to insert the value at the end of the int.tab but here insert have the ability to insert the data at specific location.
+format COLOR off.
+       "while declaring the  table we can declare the key
+        " that could be
+           " 1 unique key---- does not accpet duplicate value
+                              " also we cannot use the key with standard int table.
+           " 2 non unique key---does allow the unique vakue
+     " now     we will try to make the new int.table
+
+       data t_emp2 type TABLE OF ty_emp with non-UNIQUE key  empno. " now we uwll use one field to ka ethe key.
+
+
+       " now copy form one to another int.tabkle
+
+       append LINES OF t_emp1 to t_emp2.
+
+format color 6.
+       write : / 'data after copy form the emp1 to emp2  ......' .
+            loop at t_emp2    into wa_emp. " now it will populate the data for thgeb 1 data
+       write : / wa_emp-empno , wa_emp-ename , wa_emp-empdesig.
+       endloop.
+
+format color off.
+       uline.  " we will use the sort statement to arrange the data in an order
+       sort  t_emp1. " here we have not define the any field now it will take ckeck  wheather this int.tab ahave ny key field since we have not use any jey now by deafult it will take the char filed .
+
+format color 7.
+       write : / 'data after deafult  sorting   ......' .
+            loop at t_emp1    into wa_emp. " now it will populate the data for thgeb 1 data
+       write : / wa_emp-empno , wa_emp-ename , wa_emp-empdesig.
+       endloop.
+       format color off.
+
+
+
+       " now we will use the sort stament in emp2
+
+         sort  t_emp2. " now this fie;d have the non unique key field so now the empno will be soted .
+
+format color 7.
+       write : / 'data after deafult  sorting   ......' .
+            loop at t_emp2    into wa_emp. " now it will populate the data for thgeb 1 data
+       write : / wa_emp-empno , wa_emp-ename , wa_emp-empdesig.
+       endloop.
+       format color off.
