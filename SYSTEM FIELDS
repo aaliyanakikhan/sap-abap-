@@ -1,0 +1,63 @@
+
+REPORT  ZSYSTEM_FIELDS.
+
+types : begin of ty_emp,
+        empno type i,
+        ename(20) type c,
+        empdesig(25) type  c,
+     end of ty_emp.
+
+     data t_emp1 type table of ty_emp  WITH non-UNIQUE key empno . " now this will accept the value that have the duplicate values
+data  wa_emp type ty_emp.
+
+     clear wa_emp.
+
+      wa_emp-empno = 101.
+     wa_emp-ename = 'raju'.
+     wa_emp-empdesig = 'Manager'.
+     append wa_emp to t_emp1.
+
+       wa_emp-empno = 102.
+     wa_emp-ename = 'ram'.
+     wa_emp-empdesig = 'Quality'.
+     append wa_emp to t_emp1.
+
+           wa_emp-empno = 103.
+     wa_emp-ename = 'ramesh'.
+     wa_emp-empdesig = 'CEO'.
+     append wa_emp to t_emp1.
+
+
+           wa_emp-empno = 103.
+     wa_emp-ename = 'ramesh'.
+     wa_emp-empdesig = 'CEO'.
+     append wa_emp to t_emp1.
+
+format color 3.
+     write :/ 'data from the t_emp1....'.
+
+
+        loop at t_emp1    into wa_emp. " now it will populate the data for thgeb 1 data
+       write : / wa_emp-empno , wa_emp-ename , wa_emp-empdesig.
+       endloop.
+format color off.
+
+       clear wa_emp.
+uline.
+" SYSTEM FIELD  SY-TABIX. CAN ONLY WIRK ON LOOP END LOOP.
+
+
+
+format color 3.
+     write :/ 'data from the t_emp1....'.
+
+
+        loop at t_emp1    into wa_emp. " now it will populate the data for thgeb 1 data
+       write : / wa_emp-empno , wa_emp-ename , wa_emp-empdesig , SY-INDEX.
+       endloop.
+format color off. " OVER HER IT WILL PRINT THE VALUE OF TGHE INDEX NO BUT IF WE TRY TO USE THE SY-INDEX IT WILL SHOW 0 .
+
+
+DO 10 TIMES .
+  WRITE : / 'HELLO ' , SY-INDEX.
+  ENDDO. " HERE IN DO END DO THE SY-INDEX IS WORKING AND ONLY SHOWING THE NO OF ITERATION.
