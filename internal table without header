@@ -5,9 +5,10 @@
 *&
 *&
 *&---------------------------------------------------------------------*
+" notes we use the unique keyfield for 2 purpose ---- 1 for duplicate & non duplicate value analyze , 2 - to mention the field where we can sort specificallly.
 
 REPORT  Z_INTERNALTABLE_WITHOUT_HEADER.
-
+ 
 types : begin of ty_emp,
         empno type i,
         ename(20) type c,
@@ -116,7 +117,7 @@ format color 7.
 
        " now we will use the sort stament in emp2
 
-         sort  t_emp2. " now this fie;d have the non unique key field so now the empno will be soted .
+         sort  t_emp2. " now this fie;d have the non unique key field so now the empno will be soted . since we have used the unique key field we can sort the specific field. 
 
 format color 7.
        write : / 'data after deafult  sorting   ......' .
