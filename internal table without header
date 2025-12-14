@@ -6,6 +6,10 @@
 *&
 *&---------------------------------------------------------------------*
 " notes we use the unique keyfield for 2 purpose ---- 1 for duplicate & non duplicate value analyze , 2 - to mention the field where we can sort specificallly.
+" also when we use the sort statement  field they handle it by priority 
+" 1 it will check for the key field 
+" 2.it will check for the char data 
+" 3.then it will use the 1 field which ever is present in the int.table.
 
 REPORT  Z_INTERNALTABLE_WITHOUT_HEADER.
  
