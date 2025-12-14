@@ -1,0 +1,188 @@
+ " READ STATEMENT -- reads tha value form work area into int. tab & can only hold the 1 record .
+ " SY SUBRC--check run time excution status .
+ " tranporting keyb -- it will transfer only selected field form the internal table to work area . it helps for performance tuning.
+" whenever we use the binary search statement we have to use the sort statement then it will give the output
+
+
+
+" we have learn the STATEMENTS --- APPEND , INSERT , LOOP, DESCRIBE , SORT , READ
+" SYSTEM FIELDS LIKE ---- SY-TFILL , SY-SUBRC, SY-TABIX.
+" ADDISION LIKE ---- TRANSPORTINMG ,  BINARY SEARCH
+" DIFF BTW SY-TABIX & SY-INDEX.
+" SY-TABIX  ----HOLD THE INDEX POSITION.
+*          ----ALSO WE CAN ONLY USE IN LOOP & END LOOP THAT MEANS ONLY IN INT.TABLE
+
+" SY-INDEX --- THIS HOLD THE VALUE OF ITERATION , WE CAN USE IJN THE DO END DO , WHILE DO IN SUCH LOOPS ONLY THAT HELPS US TO DESCRIBE THE VALUE OF THE ITERATION.
+
+REPORT  Z_INT_TABLE_WITHOUT_HEADER.
+
+types : begin of ty_emp,
+        empno type i,
+        ename(20) type c,
+        empdesig(25) type  c,
+     end of ty_emp.
+
+     data t_emp1 type table of ty_emp  WITH non-UNIQUE key empno . " now this will accept the value that have the duplicate values
+data  wa_emp type ty_emp.
+
+     clear wa_emp.
+
+      wa_emp-empno = 101.
+     wa_emp-ename = 'raju'.
+     wa_emp-empdesig = 'Manager'.
+     append wa_emp to t_emp1.
+
+       wa_emp-empno = 102.
+     wa_emp-ename = 'ram'.
+     wa_emp-empdesig = 'Quality'.
+     append wa_emp to t_emp1.
+
+           wa_emp-empno = 103.
+     wa_emp-ename = 'ramesh'.
+     wa_emp-empdesig = 'CEO'.
+     append wa_emp to t_emp1.
+
+
+           wa_emp-empno = 103.
+     wa_emp-ename = 'ramesh'.
+     wa_emp-empdesig = 'CEO'.
+     append wa_emp to t_emp1.
+
+format color 3.
+     write :/ 'data from the t_emp1....'.
+
+
+        loop at t_emp1    into wa_emp. " now it will populate the data for thgeb 1 data
+       write : / wa_emp-empno , wa_emp-ename , wa_emp-empdesig.
+       endloop.
+format color off.
+
+       clear wa_emp.
+uline.
+" now if we want a specific record only form the int.table we need any info like index no , name etc.
+" we use the read stament for this work .
+
+uline.
+
+
+
+" the read  statement read the whole table & then accoirding to user requirement it will take the data form int. tb  then populate the woprk area then it will set sy-subrc as 0.
+ " we use the sy-subrc - it will store the execuition status of abap statements
+" means if the sy-subrc value is et to be 0 its execution is succesfull but its 4 then the execution is unsuccesfull and the status is set by the sap .
+
+read table t_emp1 INTO wa_emp index 3. " here we are reading the data form the int.tab & since it does not have the header we will manually use the work area  with its index no.
+
+ " here we are checking if the read statement is execiuted or not.
+format color 5.
+if sy-subrc eq 0.
+  write :/ ' 3 recoerd is found....'.
+  write : / wa_emp-empno , wa_emp-ename ,  wa_emp-empdesig.
+
+  else.
+    write :/ ' 3 recoerd is found....'.
+    endif.
+    format color off.
+
+
+    uline.
+
+
+  " now we will  not clear the data and try to print the values.
+*
+* in the below code the output will display of 2 field correct but since we have not clear the earlier data it willl show the designation of earlier  data that  is ceo since ram is quality person as not the ceo
+*read table t_emp1 INTO wa_emp index 2 TRANSPORTING empno  ename  . " here we are reading the data form the int.tab & since it does not have the header we will manually use the work area  with its index no.
+* transporting is a keywork that helps to select thespecific field to display or select .
+*  here we have used the index no and try to fetch the deatil of ram - but since we have not clear the deatils of ramesh the 3 field will also display . and then the designation is also display which we do not wmat hence we try to clear the work area
+*then print again.
+*
+*format color 2.
+*if sy-subrc eq 0.
+*  write :/ '  5 record is found  ....'.
+*  write : / wa_emp-empno , wa_emp-ename ,  wa_emp-empdesig.
+*
+*  else.
+*    write :/ ' execution failed ....'.
+*    endif.
+*    format color off.
+
+
+
+    clear wa_emp.
+
+    read table t_emp1 INTO wa_emp index 2 TRANSPORTING empno  ename  .
+" simnce we have clear now only the 2 fiedl are displaying.
+"tranporyting keyword is used for the performance turning since it helps to slect only limitied field and trsnport in to the work area from the w=int . table.
+
+format color 2.
+if sy-subrc eq 0.
+  write :/ '  5 record is found  ....'.
+  write : / wa_emp-empno , wa_emp-ename ,  wa_emp-empdesig.
+
+  else.
+    write :/ ' execution failed ....'.
+    endif.
+    format color off.
+
+
+
+
+
+    uline.
+
+    " now we will fetch the data that have the specific value  with the help of thie key value. that is emp no is a  non unique as we have declare earlier
+
+   " recommenfd to sort before the using the read statement , also read statement can only hold 1 value only.
+
+*   sort t_emp1 by empno.
+*    clear wa_emp.
+*
+*    read table t_emp1 into wa_emp with key empno = 102.  " here its following the lineear search but if we use the binary serch it will improve the performanmce.
+*
+*    if sy-subrc eq 0.
+*       write : / ' the value found' .
+*       write : / wa_emp-empno, wa_emp-ename , wa_emp-empdesig.
+*       else.
+*         write :/ ' execution failed'.
+*         endif.
+*          we will rewrite the code iwth binary search .
+
+
+
+
+         " we will write the binary code
+
+
+     sort t_emp1 by empno.
+    clear wa_emp.
+
+    read table t_emp1 into wa_emp with key empno = 102 binary SEARCH.  " here its following the lineear search but if we use the binary serch it will improve the performanmce.
+
+    if sy-subrc eq 0.
+       write : / ' the value found' .
+       write : / wa_emp-empno, wa_emp-ename , wa_emp-empdesig.
+       else.
+         write :/ ' execution failed'.
+         endif.    " now  there is difference between binary & linear research
+         " 1. linear research start form the top of the array or int table .
+         " 2binary search - start from the middle of the list & then goes upward & down ward makes more time effecient.
+
+         " now we will just check the data whetether its present or not
+
+
+
+        uline.
+
+
+     sort t_emp1 by empno.
+    clear wa_emp.
+
+*    read table t_emp1 into wa_emp with key empno = 102 TRANSPORTING NO FIELDS . " statemnet tranproting no field does not read the whole data  form int.table to work area.
+*     this above code have syntax error since we are saying that dont copy data but also declaring the int table tranport to work area make no sense.
+
+read table t_emp1  with key empno = 102 TRANSPORTING NO FIELDS. " here wqe are using the int table only and not the work area.
+    if sy-subrc eq 0.
+       write : / ' the value found' .
+       write : / wa_emp-empno, wa_emp-ename , wa_emp-empdesig.
+       else.
+         write :/ ' execution failed'.
+         endif.
