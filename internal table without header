@@ -129,3 +129,46 @@ format color 7.
        write : / wa_emp-empno , wa_emp-ename , wa_emp-empdesig.
        endloop.
        format color off.
+
+
+
+
+
+       " now we will use the sort stament in emp2
+
+         sort  t_emp2. " now this fie;d have the non unique key field so now the empno will be soted .
+
+format color 7.
+       write : / 'data after deafult  sorting   ......' .
+            loop at t_emp2    into wa_emp. " now it will populate the data for thgeb 1 data
+       write : / wa_emp-empno , wa_emp-ename , wa_emp-empdesig.
+       endloop.
+       format color off.
+
+
+
+
+
+
+         sort  t_emp2 by empdesig. " now this will sort by specidic fiedl .
+
+format color 1.
+       write : / 'data after specific field sorting   ......' .
+            loop at t_emp2    into wa_emp. " now it will populate the data for thgeb 1 data
+       write : / wa_emp-empno , wa_emp-ename , wa_emp-empdesig.
+       endloop.
+       format color off.
+
+
+
+
+
+
+         sort  t_emp2 by empdesig. " now this will sort by specidic fieD ALSO IN DESCENDING ORDER  .
+
+format color 1.
+       write : / 'data after descending order    ......' .
+            loop at t_emp2    into wa_emp. " now it will populate the data for thgeb 1 data
+       write : / wa_emp-empno , wa_emp-ename , wa_emp-empdesig.
+       endloop.
+       format color off.
