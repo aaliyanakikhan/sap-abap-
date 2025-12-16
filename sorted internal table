@@ -1,0 +1,194 @@
+
+
+
+*creating the sorted table  with non unique key.
+" a  sorted table cannot define without the non unique key/
+*diff between standard  -=--- does not require key declaration , only accept the non unique key.
+*             sorted -- requres key decalration , accept both unique & non unique key ,
+" WE CAN USE THE APPEND STATEMENT IN SORTED TABLE BUT WITH SOME RISTRICTION , AS MENTION THE CODE
+*WE HAVE TO INSERT THE DATA IN PROPER FORMAT THEN ONLY WE CAN USE THE APPEND & ELSE IT WILL THROW ERROR.
+
+*INSERT WE HAVE USE IN SORTED TABLE BENEFIT IS WE CAN INSERT AT SPECIFIC LOCATION WITHOUT ANY POSITION & SORTING PROBLEM , BUT WE CANNOT INSERT THE DUPLICATE VALYU
+
+" in sorted table we cannot use the SORT KEYWORD
+
+REPORT  z_sorted_table.
+
+TYPES : BEGIN OF ty_emp,
+        empno TYPE i,
+        ename(20) TYPE c ,
+       empdesig(25) TYPE c,
+     END OF ty_emp.
+
+
+
+*     data : t_emp1 type SORTED TABLE OF ty_emp .The key specification is incomplete. Generic specification is only
+*completed for standard tables.	 syntax error since we have not use the unique key.
+
+*  data :  t_emp1 type SORTED TABLE OF ty_emp with NON-UNIQUE KEY empno,   "sopports
+
+DATA :  t_emp1 TYPE SORTED TABLE OF ty_emp WITH UNIQUE KEY empno,
+  wa_emp TYPE ty_emp.
+
+" while adding the entried it seld  it will sort the data in the key field it self.
+
+CLEAR wa_emp.
+
+wa_emp-empno = 5.
+wa_emp-ename = 'arun'.
+wa_emp-empdesig = 'manager'.
+APPEND wa_emp TO t_emp1.
+
+
+
+CLEAR wa_emp.
+wa_emp-empno = 7.
+wa_emp-ename = 'kamal'.
+wa_emp-empdesig = 'executive'.
+APPEND wa_emp TO t_emp1.
+
+
+
+
+CLEAR wa_emp.
+wa_emp-empno = 8.
+wa_emp-ename = 'kamlesh'.
+wa_emp-empdesig = 'prof'.
+APPEND wa_emp TO t_emp1.
+
+WRITE : /' DATA IN SORTED CONDITION'.
+LOOP AT t_emp1 INTO wa_emp.
+
+  WRITE : / wa_emp-empno , wa_emp-ename, wa_emp-empdesig.
+ENDLOOP.
+
+*
+*
+*over her i have chnace the enmployee no so it will not print since i have mention after the loop
+*
+*clear wa_emp.
+*wa_emp-empno = 10.
+*wa_emp-ename = 'kamlesh'.
+*wa_emp-empdesig = 'prof'.
+*append wa_emp to t_emp1.
+
+*
+* here i will try to use  the 6 no since my sorted table
+*will sort the number so my 6 should print after 5
+*but it will throe error since its not following the sorted table
+*requirement its it will destroy the sorted table format & throw runtime error,
+" here it throw the error because it does not follow the sorted table rules .
+*
+*clear wa_emp.
+*wa_emp-empno = 6.
+*wa_emp-ename = 'kamlesh'.
+*wa_emp-empdesig = 'prof'.    "BELOW IS IMP EXP REGARDING THE RUNTIME ERROR.
+*append wa_emp to t_emp1.  " here the append will always try to
+* insert the data at the end of the table
+*  , but since we are using the sorted table this
+*   6 value should print at specific location only thats
+*  make the runtime error.
+
+" IN SHORT WE HAVE TO POPULATE THE DATA IN APPROPRIATE FORMAT , SINCE WE USE THE APPPEND IT WILL BE INSERTING THE DATA ONLY IN THE END OF LIST
+*& SINCE WE WERE TRYING TO INSERT THE 6 NO DATA IN AFTER 8 NO DATA IT WILL THROW ERROR , BECAUSE WE HAVE USED THE UNIQUE KEY AS EMPNO.
+
+*nOW IF WE WANT TO INSERT THE DATA AT SPECIFIC LOCATION THAT MEANS INSERT THE 6 NO AFTER 5 WE USE THE INSERT STATEMENT
+
+
+ULINE.
+
+
+CLEAR wa_emp.
+wa_emp-empno = 6.
+wa_emp-ename = 'kamlesh'.
+wa_emp-empdesig = 'prof'.
+INSERT  wa_emp INTO  TABLE  t_emp1.
+
+
+
+WRITE : /' DATA AFTER INSERT STATEMENT'.
+LOOP AT t_emp1 INTO wa_emp.
+  WRITE : / wa_emp-empno , wa_emp-ename, wa_emp-empdesig.
+*  WRITE : /' DATA AFTER INSERT STATEMENT'.
+ENDLOOP.
+
+
+ULINE.
+" NOW HERE WE WERE TRY TO INSERT THE DUPLICATE VALUE , BUT IT WILL NOT INSERT SINCE WE HAVE UNIQUE KEY
+" SO THE OLDER VALUE WILL BE DISPLAY & NEW VALUE WILL IGNORE , AND NO RUNTIME ERROR WILL BE THERE .
+CLEAR wa_emp.
+wa_emp-empno = 6.
+wa_emp-ename = 'SANIYA '.
+wa_emp-empdesig = 'prof'.
+INSERT  wa_emp INTO  TABLE  t_emp1.
+
+
+WRITE : /' DATA AFTER INSERT STATEMENT FOR DUPLICATE VALUE'.
+LOOP AT t_emp1 INTO wa_emp.
+  WRITE : / wa_emp-empno , wa_emp-ename, wa_emp-empdesig.
+*  WRITE : /' DATA AFTER INSERT STATEMENT'.
+ENDLOOP.
+
+
+
+*SORT t_emp1 by ename. " we can use in standard table only & cannot use in sorted table
+
+clear wa_emp.
+
+uline.
+
+" this is juts normal reading the data & printing.
+read table t_emp1 into wa_emp index 3." here we will read the int table &then take the index no fetch that value and then we will put in work area.
+if sy-subrc = 0.  " or we can also type if sy-subr eq 0.
+   write : / ' value found '.
+   write : wa_emp-empno , wa_emp-ename , wa_emp-empdesig.
+   else .
+     write : ' value not found'.
+     endif.
+
+
+
+
+clear wa_emp.
+uline.
+read table t_emp1 into wa_emp with key empno = 6 . " this is linear search means it start form the 1 record to last .
+
+if sy-subrc = 0.
+   write : / ' value 6  found '.
+   write : wa_emp-empno , wa_emp-ename , wa_emp-empdesig.
+   else .
+     write : ' value  6 not found'.
+     endif.
+
+
+" naother method.
+clear wa_emp.
+uline.
+read table t_emp1 into wa_emp with table key empno = 6 . " this is linear search means it start form the 1 record to last .
+
+if sy-subrc = 0.
+   write : / ' value 6  found using linear search'.
+   write : wa_emp-empno , wa_emp-ename , wa_emp-empdesig.
+   else .
+     write : ' value  6 not found'.
+     endif.
+
+
+     "now we do binary search.
+     " inorder to use binary search the data dshould be sorted
+
+     uline.
+
+
+
+
+clear wa_emp.
+uline.
+read table t_emp1 into wa_emp with key empno = 8  BINARY SEARCH  .
+
+if sy-subrc = 0.
+   write : / ' value 6  found  with binary search '.
+   write : wa_emp-empno , wa_emp-ename , wa_emp-empdesig.
+   else .
+     write : ' value  6 not found'.
+     endif.
